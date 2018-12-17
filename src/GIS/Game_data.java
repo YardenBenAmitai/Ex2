@@ -18,8 +18,8 @@ public class Game_data implements Meta_data{
 	public Game_data(int id,Point3D location, char c){
 		UTC=System.currentTimeMillis();
 		Location=location;
-		ID=id;
-		Type=c;
+		setID(id);
+		setType(c);
 	}
 	
 	/**
@@ -36,6 +36,25 @@ public class Game_data implements Meta_data{
 	 */
 	public Point3D get_Orientation() {
 		return Location;
+	}
+	
+	
+	
+	//////////////getters and setters///////////////////
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	public char getType() {
+		return Type;
+	}
+
+	public void setType(char type) {
+		Type = type;
 	}
 	
 }

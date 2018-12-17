@@ -30,7 +30,7 @@ public class Packman implements GIS_element{
 	}
 
 
-	public Meta_data getData() {
+	public Game_data getData() {
 		return Data;
 	}
 

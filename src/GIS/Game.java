@@ -1,9 +1,11 @@
 package GIS;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -26,14 +28,13 @@ public class Game implements GIS_layer{
 	 * @throws FileNotFoundException 
 	 */
 	public Game(String csvFile) throws FileNotFoundException{
-		Data=new Game_data(0,null,'G');
+		Data=new Game_data(-1,null,'G');
 		
 		//creating two empty array-lists for later appending.
 		ArrayList<Packman> packman_set=new ArrayList<Packman>();
 		ArrayList<Fruit> fruit_set=new ArrayList<Fruit>();
 		
-		BufferedReader csvReader;
-		csvReader = new BufferedReader(new FileReader(csvFile));
+		BufferedReader csvReader = new BufferedReader(new FileReader(csvFile));
 		String[] fields=null;
 		String currLine;
 		
@@ -83,10 +84,52 @@ public class Game implements GIS_layer{
 	 */
 	public void GameToCSV(String csvFile){
 		
-		
+		try{
+			PrintWriter pw = new PrintWriter(new File(csvFile));
+			StringBuilder sb = new StringBuilder();
+			sb.append("Type"+','+"id"+','+"Lat"+','+"Lon"+','+"Alt"+','+"Speed/Weight"+','+"Radius"+PackmanSet.size()+','+FruitSet.size());
+			sb.append('\n');
+			
+			
+			Iterator<Packman> it_p=PackmanSet.iterator();
+			Packman p;
+			while(it_p.hasNext()){
+				p=it_p.next();
+				sb.append("P"+','+Integer.toString(p.getData().getID())+','+
+						Integer.toString(p.getData().get_Orientation().ix())+','+
+						Integer.toString(p.getData().get_Orientation().iy())+','+
+						Integer.toString(p.getData().get_Orientation().iz())+','+
+						Double.toString(p.getSpeed())+','+Double.toString(p.getRadius()));
+				sb.append('\n');
+			}
+			
+			Iterator<Fruit> it_f=FruitSet.iterator();
+			Fruit f;
+			while(it_f.hasNext()){
+				f=it_f.next();
+				sb.append("F"+','+Integer.toString(f.getData().getID())+','+
+						Integer.toString(f.getData().get_Orientation().ix())+','+
+						Integer.toString(f.getData().get_Orientation().iy())+','+
+						Integer.toString(f.getData().get_Orientation().iz())+','+
+						Double.toString(f.getWeight()));
+				sb.append('\n');
+			}
+			
+			pw.write(sb.toString());
+			pw.close();
+		}catch (IOException e){
+			
+		}
 		
 	}
 	
+	public boolean addPackman(Packman p){
+		return PackmanSet.add(p);
+	}
+	
+	public boolean addFruit(Fruit f){
+		return FruitSet.add(f);
+	}
 	
 	public Meta_data get_Meta_data() {
 		return Data;

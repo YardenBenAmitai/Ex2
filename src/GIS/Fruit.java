@@ -28,7 +28,7 @@ public class Fruit implements GIS_element{
 
 
 	@Override
-	public Meta_data getData() {
+	public Game_data getData() {
 		return Data;
 	}
 
