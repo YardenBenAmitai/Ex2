@@ -1,4 +1,4 @@
-package GIS;
+package Algorithms;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,6 +11,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import File_format.csv2kml;
+import GIS.GIS_layer;
+import GIS.GIS_project;
+import GIS.GPS_data;
+import GIS.GPS_layer;
+import GIS.Meta_data;
 
 
 /**
