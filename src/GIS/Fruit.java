@@ -31,8 +31,10 @@ public class Fruit implements GIS_element{
 	public Game_data getData() {
 		return Data;
 	}
-
-
+	
+	public String toString(){
+		return ("F: "+Data.getID()+", Location: "+Data.get_Orientation());
+	}
 	@Override
 	public void translate(Point3D vec) {
 		// TODO Auto-generated method stub

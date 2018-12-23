@@ -61,7 +61,7 @@ public class MyCoords implements coords_converter {
 		double lat1=Math.toRadians(gps0.x()), lat2=Math.toRadians(gps1.x()), lon1=Math.toRadians(gps0.y()), lon2=Math.toRadians(gps1.y());
 		double distance=Math.cos(90-lat2)*Math.cos(90-lat1)+Math.sin(90-lat2)*Math.sin(90-lat1)*Math.cos(lon2-lon1);
 		distance=Math.acos(distance);
-		System.out.println(distance*radius);
+		
 		return distance*radius;
 		
 	}
@@ -71,22 +71,35 @@ public class MyCoords implements coords_converter {
 	 * computes the 3D vector (in meters) between two gps like points 
 	 */
 	public Point3D vector3D(Point3D gps0, Point3D gps1){
-		
+		// Common values
 		double radius=6371000;
-		double lon_norm=Math.cos(Math.toRadians(gps0.x()));
-		double lat=gps1.x()-gps0.x();
-		double lon=gps1.y()-gps0.y();
-		
-		// to radians:
-		lat=Math.toRadians(lat);
-		lon=Math.toRadians(lon);
-		
-		// to meters:
-		lat=Math.sin(lat)*radius;
-		lon=Math.sin(lon)*radius*lon_norm;
-		
-		return new Point3D(lat, lon, gps1.z()-gps0.z());
+	    double b        = radius+ gps1.x();
+	    double c        = radius + gps0.x();
 
+	    double b2       = b*b;
+	    double c2       = c*c;
+	    double bc2      = 2*b*c;
+
+	    // Longitudinal calculations
+	    double alpha    = gps1.y() - gps0.y();
+	    // Conversion to radian
+	    alpha = alpha * Math.PI / 180;
+	    // Small-angle approximation
+	    double cos      = Math.cos(alpha);
+	    // Use the law of cosines / Al Kashi theorem
+	    double x        = Math.sqrt(b2 + c2 - bc2*cos);
+
+	    // Repeat for latitudinal calculations
+	    alpha      = gps1.x() - gps0.x();
+	    alpha      = alpha * Math.PI / 180;
+	    cos = Math.cos(alpha);
+	    double y   = Math.sqrt(b2 + c2 - bc2*cos);
+
+	    // Obtain vertical difference, too
+	    double z   = gps1.z() - gps0.z();
+
+	    return new Point3D(x, y, z);
+		
 	}
 	
 	/** 
@@ -135,6 +148,7 @@ public class MyCoords implements coords_converter {
 		}
 		return false;
 	}
+	
 	
 	/**
 	 * creates an empty constructor to test in JUnit

@@ -33,8 +33,10 @@ public class Packman implements GIS_element{
 	public Game_data getData() {
 		return Data;
 	}
-
-
+	
+	public String toString(){
+		return ("P: "+Data.getID()+", Location: "+Data.get_Orientation()+", Speed: "+Speed+", Radius: "+Radius);
+	}
 	@Override
 	public void translate(Point3D vec) {
 		// TODO Auto-generated method stub

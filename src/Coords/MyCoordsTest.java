@@ -30,11 +30,11 @@ public class MyCoordsTest {
 	@Test
 	public final void testAdd() {
 		MyCoords c=new MyCoords();
-		Point3D gps0=new Point3D(32.103315, 35.209039, 670);
+		Point3D gps0=new Point3D(32.1057528, 35.202108333333335, 0);
 		Point3D gps1=new Point3D(32.106352, 35.205225, 650);
-		Point3D vector=new Point3D(c.vector3D(gps0, gps1));
-		gps1=c.add(gps0, vector);
-		
+		//Point3D vector=new Point3D(c.vector3D(gps0, gps1));
+		gps1=c.add(gps0, new Point3D(1433,-642));
+		System.out.println(gps1);
 		assertEquals("addition failed", 32.106352, gps1.x(), 0.5);
 		assertEquals("addition failed", 35.205225, gps1.y(), 0.5);
 		assertEquals("addition failed", 650, gps1.z(), 0.5);
@@ -58,9 +58,14 @@ public class MyCoordsTest {
 	@Test
 	public final void testVector3D() {
 		MyCoords c=new MyCoords();
-		Point3D gps0=new Point3D(32.103315, 35.209039, 670);
-		Point3D gps1=new Point3D(32.106352, 35.205225, 650);
+		Point3D gps0=new Point3D(32.1057528, 35.202108333333335, 0);
+		Point3D gps1=new Point3D(32.10194444, 35.21222222, 0);
 		Point3D vector=new Point3D(c.vector3D(gps0, gps1));
+		System.out.println(vector);
+		//MyCoords c=new MyCoords();
+		//Point3D gps0=new Point3D(32.103315, 35.209039, 670);
+		//Point3D gps1=new Point3D(32.106352, 35.205225, 650);
+		//Point3D vector=new Point3D(c.vector3D(gps0, gps1));
 		
 		assertEquals("vector failed", 337.6989921, vector.x(),0.5);
 		assertEquals("vector failed", -359.2492069, vector.y(),0.5);

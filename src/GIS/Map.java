@@ -50,6 +50,20 @@ public class Map{
 		}
 	}
 	
+	public Map(String pathName){
+		
+		MyCoords m=new MyCoords();
+		Bounds= new Point3D(1433,642,0);
+		TopLeft= new Point3D(32.1057528,35.2021084,0);
+		BottomRight=new Point3D(m.add(TopLeft, Bounds));
+		
+		try{
+			img=ImageIO.read(new File(pathName));
+		}catch (IOException e){
+			
+		}
+	}
+	
 	
 	/**
 	 * Description:
@@ -90,5 +104,10 @@ public class Map{
 	public double PixelDistance(Point3D pxl1, Point3D pxl2){
 		double result=Math.sqrt(Math.pow(pxl2.x()-pxl1.x(), 2)+Math.pow(pxl2.y()-pxl1.y(), 2));
 		return result;
+	}
+	
+	////////////////
+	public BufferedImage getImage(){
+		return img;
 	}
 }

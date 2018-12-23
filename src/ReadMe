@@ -1,11 +1,95 @@
 ReadMe:
 
-Authors: Yarden Ben-Amitai, Caroline Jubran
-ID: 312575384, 318696150
+Summary of project 3 : 
 
-the project revolve mostly around three packages.
-Coords and its class MyCoords, File_format and its csv2kml class 
-and GIS with various classes:GPS_data, GPS_layer, GPS_Point, MultiCSV.
+Authors:
+Caroline Jubran - 318696150
+Yarden Ben Amitai - 312575384
 
-Coords:
-MyCoords: 
+
+In this project we built a simple pacman game.
+the background of the game is a picture of a map.
+when the game starts, a blank window appear with two menus: "Game Set"- that containes already written csv files that run the game
+and "New Game" in which the player can create his own game and set pacmans and fruits as he likes.
+when choosing one of the game sets, pacmans and fruits appear on the sceen. 
+each packman on the map eats the fruits closest to it until there are no fruits left,
+every fruit must be eaten by only one pacman, and then disappear. 
+the score of each pacman is defined by he sum of weights of the fruits he ate.
+the goal is to eat all the fruits as quickly as possible.
+
+****In the GIS package** 
+ 
+////////CLASS MAP//////////
+ This class represents a map which will be our game background
+it consists of : an image, gps coordinates of top-left and bottom-right corners and the picture's bounds.
+1- constructor -> Map 
+2-methods -> CoordsToPixels + PixelsToCoords + PixelDistance 
+
+//////CLASS PACMAN///////
+This class represents a robot (packman) that can move on the map in a certain velocity.
+it consists of :speed, radius, gps coordinates, and id.
+1-constructor -> Pacman
+2-getters and setters -> for the speed and radius of each pacman
+
+//////CLASS FRUIT/////////
+This class represents a "goal" (fruit) that can't move.
+it consists of : weight, gps coordinates and id.
+1-constructor ->Fruit 
+2-getters and setters ->for the weight of each fruit
+
+
+///////CLASS GAME/////////////
+This class represents a group of pacmans and a group of fruits , it has the ability to 
+gather information from a csv file and save to it.
+it consists of :pacmans list, fruits list
+1-constructor -> Game
+2-default  constructor -> Game()
+3-methods -> GameToCSV + MetaData  
+4-getters and setters -> methods for packman and fruit fields
+
+
+///////CLASS GAME DATA//////////
+This class gives the information you need to know about each pacman
+like its : ID , location and its utc
+it consists of a :
+1-constructor->Game_Data
+2-getters and setters -> to get the utc , location ...
+ 
+
+///////CLASS PATH///////////
+this class  represents a path where the first element is the pacman and the rest of the list is fruits he needs to eat.
+it consists of :a list as describes above, the speed and radius of the pacman as well as path's id.
+1-construcor ->Path
+2-method -> DistanceSpeedTime 
+3-getters and setters -> ID + radius + path .. 
+
+
+**in the ALGORITHEMS package*****
+
+/////CLASS SHORTEST PATH ALGO/////
+This class represents the main algorithm that the game depends on 
+the algorithm calculates the shortest path each pacman should take to eat the fruits in its path in the shortest 
+period of time possible.
+it consists of : a list of paths for each pacman
+1-constructor ->ShortestPathAlgo(Game)
+2 ->SmartPathCalculator/SimplePathCalculator- the constructor receives a game and then decides to which method to send 
+it to according to the number of fruits. for games with under 21 fruits the class uses the smart algorithm. and simple algorithm otherwise.
+3 ->getters and setters
+
+
+****in the GUI package********
+
+///////CLASS MY FRAME////////
+this is a graphic class that represents our pacmans and fruits on a map , display the process of the game according to the algorithm,
+saves the game process to csv file, creates a new game by setting game pieces on the board etc.
+it consists of :a GameBoard and an empty game piece for personal alterations. 
+1-constructor ->My Frame
+2-methods -> paint component, animate, LoadBoard
+
+  
+***in the FILE FORMAT package******
+
+//////CLASS PATH2KML//////////
+this class helps us get the path of each pacman according to a real time zone  and saves it 
+in a kml file that we can run on google earth and watch our packman's eat their fruits
+it consists of a:

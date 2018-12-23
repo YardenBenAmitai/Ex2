@@ -14,8 +14,8 @@ import Geom.Point3D;
 
 
 public class Game implements GIS_layer{
-	private ArrayList<Packman> PackmanSet;
-	private ArrayList<Fruit> FruitSet;
+	private ArrayList<Packman> PackmanSet=null;
+	private ArrayList<Fruit> FruitSet=null;
 	private Game_data Data;
 	
 	
@@ -45,8 +45,7 @@ public class Game implements GIS_layer{
 			while((currLine=csvReader.readLine())!=null){
 				fields=currLine.split(",");
 				Point3D loc=new Point3D(Double.parseDouble(fields[2]),Double.parseDouble(fields[3]), Double.parseDouble(fields[4]));
-				
-				if((fields[0]=="p")||(fields[0]=="P")){
+				if(fields[0].equals("p")||(fields[0].equals("P"))){
 					Packman p=new Packman(Integer.parseInt(fields[1]), loc, Double.parseDouble(fields[5]), Double.parseDouble(fields[6]));
 					packman_set.add(p);
 				}
@@ -71,8 +70,8 @@ public class Game implements GIS_layer{
 	 * empty constructor
 	 */
 	public Game(){
-		PackmanSet=null;
-		FruitSet=null;
+		PackmanSet=new ArrayList<Packman>();;
+		FruitSet=new ArrayList<Fruit>();
 		Data=new Game_data(0,null,'G');
 	}
 	
@@ -87,7 +86,7 @@ public class Game implements GIS_layer{
 		try{
 			PrintWriter pw = new PrintWriter(new File(csvFile));
 			StringBuilder sb = new StringBuilder();
-			sb.append("Type"+','+"id"+','+"Lat"+','+"Lon"+','+"Alt"+','+"Speed/Weight"+','+"Radius"+PackmanSet.size()+','+FruitSet.size());
+			sb.append("Type"+','+"id"+','+"Lat"+','+"Lon"+','+"Alt"+','+"Speed/Weight"+','+"Radius"+','+PackmanSet.size()+','+FruitSet.size());
 			sb.append('\n');
 			
 			
@@ -95,10 +94,10 @@ public class Game implements GIS_layer{
 			Packman p;
 			while(it_p.hasNext()){
 				p=it_p.next();
-				sb.append("P"+','+Integer.toString(p.getData().getID())+','+
-						Integer.toString(p.getData().get_Orientation().ix())+','+
-						Integer.toString(p.getData().get_Orientation().iy())+','+
-						Integer.toString(p.getData().get_Orientation().iz())+','+
+				sb.append("P"+','+Double.toString(p.getData().getID())+','+
+						Double.toString(p.getData().get_Orientation().x())+','+
+						Double.toString(p.getData().get_Orientation().y())+','+
+						Double.toString(p.getData().get_Orientation().z())+','+
 						Double.toString(p.getSpeed())+','+Double.toString(p.getRadius()));
 				sb.append('\n');
 			}
@@ -107,10 +106,10 @@ public class Game implements GIS_layer{
 			Fruit f;
 			while(it_f.hasNext()){
 				f=it_f.next();
-				sb.append("F"+','+Integer.toString(f.getData().getID())+','+
-						Integer.toString(f.getData().get_Orientation().ix())+','+
-						Integer.toString(f.getData().get_Orientation().iy())+','+
-						Integer.toString(f.getData().get_Orientation().iz())+','+
+				sb.append("F"+','+Double.toString(f.getData().getID())+','+
+						Double.toString(f.getData().get_Orientation().x())+','+
+						Double.toString(f.getData().get_Orientation().y())+','+
+						Double.toString(f.getData().get_Orientation().z())+','+
 						Double.toString(f.getWeight()));
 				sb.append('\n');
 			}
@@ -136,6 +135,31 @@ public class Game implements GIS_layer{
 	}
 	
 	
+	public Iterator<Packman> PIterator() {
+		Iterator<Packman> it=PackmanSet.iterator();
+		return it;
+	}
+	
+	
+	public Iterator<Fruit> FIterator() {
+		Iterator<Fruit> it=FruitSet.iterator();
+		return it;
+	}
+	
+	public String toString(){
+		StringBuilder sb=new StringBuilder();
+		Iterator<Packman> itg= PackmanSet.iterator();
+		while(itg.hasNext()){
+			sb.append(itg.next().toString());
+			sb.append('\n');
+		}
+		Iterator<Fruit> itf=FruitSet.iterator();
+		while(itf.hasNext()){
+			sb.append(itf.next().toString());
+			sb.append('\n');
+		}
+		return sb.toString();
+	}
 	///////////////getters and setters///////////////
 	/**
 	 * Description:
@@ -208,11 +232,7 @@ public class Game implements GIS_layer{
 		return false;
 	}
 
-	@Override
-	public Iterator<GIS_element> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public boolean remove(Object o) {
@@ -246,6 +266,12 @@ public class Game implements GIS_layer{
 
 	@Override
 	public <T> T[] toArray(T[] a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<GIS_element> iterator() {
 		// TODO Auto-generated method stub
 		return null;
 	}
