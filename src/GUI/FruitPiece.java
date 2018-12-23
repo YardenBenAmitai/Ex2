@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.ImageIcon;
 
+import GIS.Map;
 import Geom.Point3D;
 
 
@@ -33,4 +34,5 @@ public class FruitPiece implements GamePiece{
 	public int gety(){
 		return y;
 	}
+	
 }

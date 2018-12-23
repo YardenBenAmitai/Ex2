@@ -211,13 +211,13 @@ public class MyFrame extends JFrame implements MouseListener{
 			game=new Game(str);
 		g=new GameBoard(game);
 		add(g);
-		
+		System.out.println(game);
 		g.addMouseListener(new MouseListener() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
 		    	piece[2]=e.getX();
 		        piece[1]=e.getY();
-		        System.out.println(piece[1]+" "+piece[2]);
+		        
 		        g.LoadGamePiece(piece);
 		    }
 
@@ -245,7 +245,7 @@ public class MyFrame extends JFrame implements MouseListener{
 				
 			}
 		});
-		add(g);
+		
 		pack();
 		repaint();
 	}

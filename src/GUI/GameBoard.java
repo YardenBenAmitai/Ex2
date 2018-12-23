@@ -55,7 +55,7 @@ public class GameBoard extends JPanel{
         B_Height =  img.getHeight(this);
         setPreferredSize(new Dimension(B_Width, B_Height));
         game=g;
-        if(game==null){
+        if(game!=null){
         	animate();
         }
         repaint();
@@ -98,7 +98,7 @@ public class GameBoard extends JPanel{
     	else{
     		game.addFruit(new Fruit(piece[3], map.PixelsToCoords(new Point3D(piece[1], piece[2],0)),1));
     	}
-    	System.out.println(game);
+    	
     	animate();
     	repaint();
     }

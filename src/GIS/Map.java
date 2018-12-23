@@ -106,6 +106,7 @@ public class Map{
 		return result;
 	}
 	
+	
 	////////////////
 	public BufferedImage getImage(){
 		return img;
