@@ -211,7 +211,7 @@ public class MyFrame extends JFrame implements MouseListener{
 			game=new Game(str);
 		g=new GameBoard(game);
 		add(g);
-		System.out.println(game);
+		
 		g.addMouseListener(new MouseListener() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
