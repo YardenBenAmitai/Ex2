@@ -14,12 +14,22 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-
+/**
+ * Description:
+ * the class is the main window of the game.
+ * the class's fields are a default serialVersionUID, a GameBoard where the actual game takes place 
+ * and an array, set to null, unless the user create a new game piece.
+ * the class has two menues: GameSets where complete game sets are stores and can be displayed. 
+ * "New Game" where the user can create a new game set and save it.
+ * 
+ * @author Yarden and Caroline
+ *
+ */
 public class MyFrame extends JFrame implements MouseListener{
 
 	private static final long serialVersionUID = 1L;
 	private GameBoard g;
-	private int[] piece;
+	private int[] piece=null;
 	
 	
 	public static void main(String[] args) {
@@ -36,13 +46,22 @@ public class MyFrame extends JFrame implements MouseListener{
 			}
 		});
 	}
-		
+	
+	/**
+	 * Description:
+	 * constructor that starts the gui functionality.
+	 */
 	public MyFrame(){
 		
 		initGameGUI();
 	}
 	
 	
+	/**
+	 * Description:
+	 * the method where the JFrame assembles all its components which are 2 menues, BoardGame(JPanel)
+	 * action listeners to all the menu buttons and a mouse listener to the screen for when the user places a new game piece.
+	 */
 	public void initGameGUI(){
 		
 		JMenuBar m=new JMenuBar();
@@ -199,7 +218,12 @@ public class MyFrame extends JFrame implements MouseListener{
 		
 	}
 	
-	
+	/**
+	 * Description:
+	 * a method called forth by the initGameGUI to set the GameBoard parameters according to the button's menu, clicked.
+	 * @param str
+	 * @throws FileNotFoundException
+	 */
 	public void loadBoard(String str) throws FileNotFoundException{
 		if(g!=null){
 			this.remove(g);
@@ -211,14 +235,16 @@ public class MyFrame extends JFrame implements MouseListener{
 			game=new Game(str);
 		g=new GameBoard(game);
 		add(g);
-		
+		pack();
 		g.addMouseListener(new MouseListener() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
-		    	piece[2]=e.getX();
-		        piece[1]=e.getY();
-		        
-		        g.LoadGamePiece(piece);
+		    	if(piece!=null){
+		    		piece[1]=e.getX();
+			        piece[2]=e.getY();
+			        
+			        g.LoadGamePiece(piece);
+		    	}
 		    }
 
 			@Override
@@ -245,13 +271,13 @@ public class MyFrame extends JFrame implements MouseListener{
 				
 			}
 		});
-		
-		pack();
-		repaint();
 	}
 	
 	
-	
+	/**
+	 * Description:
+	 * default method of Swing components to display the game pieces.
+	 */
 	public void paintComponents(Graphics g){
 		super.paintComponents(g);
 	}

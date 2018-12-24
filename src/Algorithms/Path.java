@@ -8,27 +8,47 @@ import GIS.Fruit;
 import GIS.Packman;
 import Geom.Point3D;
 
+/**
+ * Description:
+ * the class represents the path of a pacman.
+ * the class's fields are a pacman object, a time variable which updates itself 
+ * after every fruit the pacman eats according to its speed and the fruit's distance.
+ * the class also contains arraylist of fruits in the order they were meant to be eaten.
+ * 
+ * @author Yarden and Caroline
+ *
+ */
 public class Path {
-	private int ID;
-	private double Speed;
-	private double Radius;
+	
+	private Packman head;
 	private ArrayList<Fruit> PathArray=null;
 	private double currTime;
 	
-	
+	/**
+	 * Description:
+	 * constructor which receives a a parameter the initial packman object, 
+	 * creates a list which the packman location as the first object
+	 * and sets the time to 0 as no fruits were eaten yet.
+	 * @param StartingPoint
+	 */
 	public Path(Packman StartingPoint){
 		
-		ID=StartingPoint.getData().getID();
-		Speed=StartingPoint.getSpeed();
-		Radius=StartingPoint.getRadius();
+		head=new Packman(StartingPoint.getData().getID(), StartingPoint.getData().get_Orientation(), StartingPoint.getSpeed(), StartingPoint.getRadius());
+		
 		PathArray=new ArrayList<Fruit>();
-		Fruit head=new Fruit(-1, StartingPoint.getData().get_Orientation(), StartingPoint.getRadius());
+		Fruit head=new Fruit(-1, StartingPoint.getData().get_Orientation(), 0);
 		PathArray.add(head);
 		setCurrTime(0);
 		
 	}
 	
-	
+	/**
+	 * Description:
+	 * the method calculates the time it would take the packman to move 
+	 * from given coordinate to the location of the last fruit on the list (also the last stop of the packman before advancing).
+	 * @param p2
+	 * @return the time in seconds altered by the packman's speed and the fruit's distance
+	 */
 	public double DistanceSpeedTime(Point3D p2){
 		if (p2==null){
 			return -1;
@@ -36,23 +56,34 @@ public class Path {
 		Point3D p1=PathArray.get(PathArray.size()-1).getData().get_Orientation();
 		MyCoords c=new MyCoords();
 		double distance=c.distance3d(p1,p2);
-		return (distance/Speed)*60*60;
+		return (distance/head.getSpeed())*60*60;
 		
 	}
 	
+	/**
+	 * Description:
+	 * the method returns the length of the list.
+	 * @return the number of fruits that were eaten
+	 */
 	public int FruitsEaten(){
 		return PathArray.size()-1;
 	}
 	
-	public boolean addFruit(Fruit f){
+	/**
+	 * Description:
+	 * the method is given a fruit object.
+	 * appends it to the end of the list and set the time according to the speed, time and fruit's location
+	 * @param f
+	 */
+	public void addFruit(Fruit f){
 		currTime+= this.DistanceSpeedTime(f.getData().get_Orientation());
 		PathArray.add(f);
-		return true;
-		
 	}
+	
+	
 	public String toString(){
 		StringBuilder sb=new StringBuilder();
-		sb.append("Path: "+ID);
+		sb.append("Path: "+head.getData().getID());
 		sb.append('\n');
 		Iterator<Fruit> it=PathArray.iterator();
 		while(it.hasNext()){
@@ -64,21 +95,16 @@ public class Path {
 	
 	////////////////////getters and setters//////////////////////
 	
-	public int getID() {
-		return ID;
+	
+	
+	public Packman getHead() {
+		return head;
 	}
-
-	public void setID(int iD) {
-		ID = iD;
+	
+	public void setHeadLocation(Point3D p){
+		head.getData().setLocation(p);
 	}
-
-	public double getRadius() {
-		return Radius;
-	}
-
-	public void setRadius(double radius) {
-		Radius = radius;
-	}
+	
 	
 	public ArrayList<Fruit> getPath(){
 		return PathArray;

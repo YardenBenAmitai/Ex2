@@ -57,4 +57,8 @@ public class Game_data implements Meta_data{
 		Type = type;
 	}
 	
+	public void setLocation(Point3D p){
+		Location=p;
+	}
+	
 }

@@ -3,6 +3,13 @@ package GIS;
 import Geom.Geom_element;
 import Geom.Point3D;
 
+/**
+ * Description:
+ * the class represents a motionless fruit with weight, location and id.
+ * the fruits are to be eaten by a packman object.
+ * @author User
+ *
+ */
 public class Fruit implements GIS_element{
 	
 	private Game_data Data;

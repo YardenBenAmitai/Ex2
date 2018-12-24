@@ -3,6 +3,12 @@ package GIS;
 import Geom.Geom_element;
 import Geom.Point3D;
 
+/**
+ * Description:
+ * the class represents a packman that has speed,radius for fruits, location, id.
+ * @author Yarden and Caroline
+ *
+ */
 public class Packman implements GIS_element{
 	
 	private Game_data Data;

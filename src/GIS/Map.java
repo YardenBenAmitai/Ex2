@@ -50,6 +50,11 @@ public class Map{
 		}
 	}
 	
+	/**
+	 * Description:
+	 * the constructor uses its default coordinates for topleft and bottomright.
+	 * @param pathName
+	 */
 	public Map(String pathName){
 		
 		MyCoords m=new MyCoords();
@@ -77,7 +82,7 @@ public class Map{
 	public Point3D CoordsToPixels(Point3D coord){
 		MyCoords m=new MyCoords();
 		Point3D pix=new Point3D(m.vector3D(TopLeft, coord));
-		return pix;
+		return new Point3D(Math.abs(pix.x()), Math.abs(pix.y()), Math.abs(pix.z()));
 	}
 	
 	
@@ -106,8 +111,46 @@ public class Map{
 		return result;
 	}
 	
+	/**
+	 * Description:
+	 * the method calculate the coordinate between source(gps0) and destination(gps1) 
+	 * where the source advances a given distance in meters.
+	 * the method uses Haversine formula to find the distance between source to destination,
+	 * and uses it to find the ratio to alter the source.
+	 * 
+	 * see also: https://stackoverflow.com/questions/3073281/how-to-move-a-marker-100-meters-with-coordinates
+	 * 
+	 * @param gps0
+	 * @param gps1
+	 * @param distance
+	 * @return new coordinate
+	 */
+	public Point3D AdvanceDistance(Point3D gps0, Point3D gps1, double distance){
+		
+		double radius = 6371000; // radius of earth in meters
+		double latDist = gps0.x() - gps1.x();
+		double lngDist = gps0.y() - gps1.y();
+		
+		latDist = Math.toRadians(latDist);
+		lngDist = Math.toRadians(lngDist);
+		latDist = Math.sin(latDist);
+		lngDist = Math.sin(lngDist);
+		
+		double cosLat1 = Math.cos(Math.toRadians(gps0.x()));
+		double cosLat2 = Math.cos(Math.toRadians(gps1.x()));
+		double a = (latDist/2)*(latDist/2) + cosLat1*cosLat2*(lngDist/2)*(lngDist/2);
+		
+		if(a<0){
+			a = -1*a;
+		}
+		
+		double ratio=distance/(radius*2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+		return new Point3D(gps0.x() + ((gps1.x() - gps0.x()) * ratio), gps0.y() + ((gps1.y() - gps0.y()) * ratio),0);
+	}
 	
-	////////////////
+	
+	////////////////getters and setters///////////////////
+	
 	public BufferedImage getImage(){
 		return img;
 	}

@@ -75,11 +75,10 @@ public class MyCoords implements coords_converter {
 		double radius=6371000;
 	    double b        = radius+ gps1.x();
 	    double c        = radius + gps0.x();
-
 	    double b2       = b*b;
 	    double c2       = c*c;
 	    double bc2      = 2*b*c;
-
+	    
 	    // Longitudinal calculations
 	    double alpha    = gps1.y() - gps0.y();
 	    // Conversion to radian
@@ -88,16 +87,13 @@ public class MyCoords implements coords_converter {
 	    double cos      = Math.cos(alpha);
 	    // Use the law of cosines / Al Kashi theorem
 	    double x        = Math.sqrt(b2 + c2 - bc2*cos);
-
 	    // Repeat for latitudinal calculations
 	    alpha      = gps1.x() - gps0.x();
 	    alpha      = alpha * Math.PI / 180;
 	    cos = Math.cos(alpha);
 	    double y   = Math.sqrt(b2 + c2 - bc2*cos);
-
 	    // Obtain vertical difference, too
 	    double z   = gps1.z() - gps0.z();
-
 	    return new Point3D(x, y, z);
 		
 	}
@@ -151,6 +147,7 @@ public class MyCoords implements coords_converter {
 	
 	
 	/**
+	 * Description:
 	 * creates an empty constructor to test in JUnit
 	 */
 	public MyCoords(){
