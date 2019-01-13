@@ -7,12 +7,11 @@ import java.util.Iterator;
 
 import File_format.csv2kml;
 
-
 /**
- * Description:
- * GPS_layer class implements GIS_layer interface, holds two fields:
- * a Set of <GPS_Point> creating a layer 
- * and GPS_data containing a utc for when the layer was first initiated and one colour for all the points in the layer.
+ * Description: GPS_layer class implements GIS_layer interface, holds two
+ * fields: a Set of <GPS_Point> creating a layer and GPS_data containing a utc
+ * for when the layer was first initiated and one colour for all the points in
+ * the layer.
  * 
  * @author Yarden, Caroline
  *
@@ -20,54 +19,49 @@ import File_format.csv2kml;
 public class GPS_layer implements GIS_layer {
 	private HashSet<GPS_Point> layer;
 	private GPS_data data;
-	
-	
-	
+
 	/**
-	 * Description:
-	 * empty constructor
+	 * Description: empty constructor
 	 */
-	public GPS_layer(){
-		layer=new HashSet<GPS_Point>();
-		data=new GPS_data();
+	public GPS_layer() {
+		layer = new HashSet<GPS_Point>();
+		data = new GPS_data();
 	}
-	
+
 	/**
-	 * Description:
-	 * a converting constructor receives csv filename and kml filename.
+	 * Description: a converting constructor receives csv filename and kml filename.
 	 * the constructor builds a layer while converting the csv file into kml file
+	 * 
 	 * @param csvFileName
-	 * @param kmlFileName 
-	 * @throws IOException 
+	 * @param kmlFileName
+	 * @throws IOException
 	 */
-	public GPS_layer(String csvFileName, String kmlFileName) throws IOException{
-		csv2kml c=new csv2kml();
+	public GPS_layer(String csvFileName, String kmlFileName) throws IOException {
+		csv2kml c = new csv2kml();
 		c.convertFile(this, csvFileName, kmlFileName);
 	}
 
-	
 	public Meta_data get_Meta_data() {
 		return this.data;
 	}
-	
-	public HashSet<GPS_Point> get_layer(){
+
+	public HashSet<GPS_Point> get_layer() {
 		return layer;
 	}
-	
-	public GPS_data get_data(){
+
+	public GPS_data get_data() {
 		return this.data;
 	}
-	
-	public String toString(){
-		String s="";
-		Iterator<GPS_Point> it=layer.iterator();
-		while(it.hasNext()){
-			s+="Point-> "+it.next().toString()+"\n";
+
+	public String toString() {
+		String s = "";
+		Iterator<GPS_Point> it = layer.iterator();
+		while (it.hasNext()) {
+			s += "Point-> " + it.next().toString() + "\n";
 		}
 		return s;
 	}
-	
-	
+
 	//////////////////////////////////////////////////////////
 
 	@Override
@@ -79,7 +73,7 @@ public class GPS_layer implements GIS_layer {
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -147,7 +141,5 @@ public class GPS_layer implements GIS_layer {
 		layer.add((GPS_Point) e);
 		return true;
 	}
-
-	
 
 }

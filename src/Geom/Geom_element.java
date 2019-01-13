@@ -1,7 +1,7 @@
 package Geom;
 
-public interface Geom_element {
-	public double distance3D(Point3D p) ;
-	public double distance2D(Point3D p);
-	
+public abstract interface Geom_element {
+	public abstract double distance3D(Point3D paramPoint3D);
+
+	public abstract double distance2D(Point3D paramPoint3D);
 }

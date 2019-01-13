@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/CD.ucls</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/Downloads/CD.ucls</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
